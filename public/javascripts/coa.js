@@ -10,6 +10,10 @@ app.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'partials/video-form.html',
 			controller: 'AddVideoCtrl'
 		})
+		.when('/video/:id', {
+			templateUrl: 'partials/video-form.html',
+			controller: 'EditVideoCtrl'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
@@ -32,5 +36,23 @@ app.controller('AddVideoCtrl', ['$scope', '$resource', '$location',
 				$location.path('/');
 			});
 		};
+	}
+]);
+
+app.controller('EditVideoCtrl', ['$scope', '$resource', '$location', '$routeParams', 
+	function($scope, $resource, $location, $routeParams) {
+		var Videos = $resource('/videos/:id', { id: '@_id' }, {
+			update: { method: 'PUT' }
+		});
+
+		Videos.get({ id: $routeParams.id }, function(video) {
+			$scope.video = video;
+		});
+
+		$scope.save = function() {
+			Videos.update($scope.video, function() {
+				$location.path('/');
+			});
+		}
 	}
 ]);
