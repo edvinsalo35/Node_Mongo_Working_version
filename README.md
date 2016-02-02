@@ -1,4 +1,6 @@
-#Patch guide for Node Mongo Working
+# COA 
+
+## Patch guide for Node Mongo Working
 
 1. First off, install XCode
 2. After that, add the kerberos & mongodb with the right version number.
@@ -10,13 +12,25 @@
 
 3. Thirdly, fix the bson error as below. 
 
-```
-	find in npm module mongodb ..node_modules\mongodb\node_modules\bson\ext\index.js
+
+	find in npm module mongodb 
+
+	```
+	..node_modules\mongodb\node_modules\bson\ext\index.js
+	```
 
 	and change path to js version in catch block
 
+	```
 	bson = require('../build/Release/bson');
+	```
+	
 	to
 
+	```
 	bson = require('../browser_build/bson');
-```
+	```
+
+## Contents
+
+Includes Node + Express + Mongo + Angular Usage.
